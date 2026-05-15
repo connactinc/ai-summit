@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 銷售式 AI 高峰會｜政府補助店家最高 10 萬元</title>
+<meta name="description" content="從生成式 AI 升級到銷售式 AI，搭配經濟部商業發展署『強化韌性計畫』，單一店家最高補助 10 萬元，協助企業導入 AI 解決方案。" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="2026 銷售式 AI 高峰會｜政府最高補助 10 萬元" />
+<meta property="og:description" content="從生成式 AI 升級到銷售式 AI，搭配政府補助方案總額 50%、最高 10 萬元。" />
+<meta property="og:type" content="website" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a1019;
+  --bg-soft: #131c2a;
+  --surface: #1a2638;
+  --ink: #f5f0e6;
+  --ink-soft: #b9c1cf;
+  --gold: #d4a24c;
+  --gold-bright: #ecc578;
+  --accent: #2a9df4;
+  --danger: #ff5a5f;
+  --line: rgba(212, 162, 76, 0.22);
+  --serif: "Noto Serif TC", "Songti TC", serif;
+  --sans: "Noto Sans TC", -apple-system, system-ui, sans-serif;
+  --display: "Bebas Neue", "Noto Sans TC", sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============ TOP BAR ============ */
+.topbar {
+  background: linear-gradient(90deg, #c8902f, #ecc578, #c8902f);
+  color: #2a1a00;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar strong { font-size: 16px; }
+
+/* ============ NAV ============ */
+.nav {
+  background: rgba(10, 16, 25, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  position: sticky;
+  top: 38px;
+  z-index: 99;
+}
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--gold-bright);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--ink); }
+.nav-cta {
+  background: var(--gold);
+  color: #1a1000;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.25s;
+}
+.nav-cta:hover {
+  background: var(--gold-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(236, 197, 120, 0.3);
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  padding: 80px 0 100px;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(212, 162, 76, 0.18), transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(42, 157, 244, 0.12), transparent 50%),
+    var(--bg);
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 162, 76, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 162, 76, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+.hero-inner { position: relative; z-index: 1; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  letter-spacing: 4px;
+  color: var(--gold);
+  font-size: 16px;
+  margin-bottom: 28px;
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(212, 162, 76, 0.06);
+}
+.eyebrow .dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--gold);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(34px, 5.5vw, 68px);
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+.hero h1 .accent {
+  background: linear-gradient(120deg, #ecc578, #d4a24c, #b8862f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero h1 .strike {
+  position: relative;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.hero h1 .strike::after {
+  content: "";
+  position: absolute;
+  left: -4%; right: -4%;
+  top: 52%;
+  height: 4px;
+  background: var(--danger);
+  transform: rotate(-2deg);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+/* Subsidy callout */
+.subsidy-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding: 24px 36px;
+  background: linear-gradient(135deg, rgba(212, 162, 76, 0.15), rgba(212, 162, 76, 0.04));
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  margin-bottom: 44px;
+  position: relative;
+  flex-wrap: wrap;
+}
+.subsidy-banner::before {
+  content: "政府補助";
+  position: absolute;
+  top: -12px;
+  left: 28px;
+  background: var(--gold);
+  color: #1a1000;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.subsidy-amount {
+  font-family: var(--display);
+  font-size: clamp(48px, 7vw, 80px);
+  color: var(--gold-bright);
+  line-height: 1;
+  letter-spacing: 1px;
+  text-shadow: 0 0 30px rgba(236, 197, 120, 0.3);
+}
+.subsidy-amount small { font-size: 0.4em; color: var(--ink-soft); margin-right: 6px; letter-spacing: 4px;}
+.subsidy-text { max-width: 320px; }
+.subsidy-text .t { font-size: 14px; color: var(--ink-soft); margin-bottom: 4px; letter-spacing: 1px; }
+.subsidy-text .b { font-size: 18px; font-weight: 700; color: var(--ink); }
+.subsidy-text .b em { font-style: normal; color: var(--gold-bright); }
+
+.hero-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 36px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  color: #1a1000;
+  box-shadow: 0 10px 30px rgba(212, 162, 76, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(212, 162, 76, 0.5);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink-soft);
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+}
+.btn-primary .arrow { transition: transform 0.3s; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+/* ============ SECTION COMMON ============ */
+section { padding: 100px 0; }
+
+.section-eyebrow {
+  font-family: var(--display);
+  letter-spacing: 6px;
+  color: var(--gold);
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+.section-title .accent {
+  color: var(--gold-bright);
+}
+.section-lead {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 760px;
+  margin-bottom: 60px;
+}
+
+/* ============ PAIN POINTS ============ */
+.pain {
+  background: linear-gradient(180deg, var(--bg), var(--bg-soft));
+}
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.pain-card {
+  padding: 32px 28px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  position: relative;
+  transition: all 0.3s;
+}
+.pain-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+.pain-card .num {
+  font-family: var(--display);
+  font-size: 56px;
+  color: var(--gold);
+  opacity: 0.4;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.pain-card h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.pain-card p { color: var(--ink-soft); font-size: 15px; }
+
+/* ============ SUBSIDY DETAIL ============ */
+.subsidy {
+  background: var(--bg-soft);
+  position: relative;
+}
+.subsidy::before {
+  content: "$";
+  position: absolute;
+  font-family: var(--display);
+  font-size: 600px;
+  color: rgba(212, 162, 76, 0.03);
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.subsidy-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .subsidy-layout { grid-template-columns: 1fr; gap: 40px; }
+}
+
+.subsidy-detail-card {
+  background: linear-gradient(160deg, rgba(212, 162, 76, 0.12), rgba(255,255,255,0.02));
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+}
+.subsidy-detail-card .badge {
+  position: absolute;
+  top: -14px; left: 32px;
+  background: var(--bg);
+  color: var(--gold-bright);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border: 1px solid var(--gold);
+}
+.kv { margin-top: 20px; }
+.kv-row {
+  display: flex;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.kv-row:last-child { border-bottom: none; }
+.kv-row .k {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 100px;
+  letter-spacing: 1px;
+}
+.kv-row .v { color: var(--ink); flex: 1; font-size: 15px; }
+.kv-row .v strong { color: var(--gold-bright); font-size: 17px; }
+
+.subsidy-info ul {
+  list-style: none;
+  margin-top: 30px;
+}
+.subsidy-info ul li {
+  position: relative;
+  padding: 14px 0 14px 32px;
+  color: var(--ink-soft);
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+}
+.subsidy-info ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0; top: 14px;
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 18px;
+}
+.subsidy-info ul li strong { color: var(--ink); }
+
+.gov-note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: rgba(42, 157, 244, 0.08);
+  border-left: 3px solid var(--accent);
+  font-size: 13px;
+  color: var(--ink-soft);
+  border-radius: 4px;
+}
+.gov-note a { color: var(--accent); text-decoration: underline; }
+
+/* ============ ADVANTAGES ============ */
+.adv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+.adv-card {
+  padding: 36px 28px;
+  background: var(--surface);
+  border-radius: 14px;
+  border-top: 3px solid var(--gold);
+  position: relative;
+  transition: transform 0.3s;
+}
+.adv-card:hover { transform: translateY(-6px); }
+.adv-card .num {
+  font-family: var(--display);
+  font-size: 40px;
+  color: var(--gold);
+  letter-spacing: 3px;
+}
+.adv-card h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin: 8px 0 14px;
+  color: var(--ink);
+}
+.adv-card p { font-size: 15px; color: var(--ink-soft); }
+
+/* ============ CASES ============ */
+.cases {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(212, 162, 76, 0.08), transparent 60%),
+    var(--bg);
+}
+.million-banner {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.million-banner .label {
+  font-family: var(--display);
+  letter-spacing: 6px;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.million-banner .num {
+  font-family: var(--display);
+  font-size: clamp(80px, 14vw, 160px);
+  line-height: 1;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold), #8b6520);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+}
+.million-banner .sub {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.5vw, 28px);
+  color: var(--ink);
+  margin-top: 12px;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+.case-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 32px 28px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.case-card .tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.case-card blockquote {
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.8;
+  margin-bottom: 18px;
+  font-style: italic;
+  position: relative;
+  padding-left: 16px;
+  border-left: 2px solid var(--gold);
+}
+.case-card .who {
+  font-family: var(--serif);
+  color: var(--gold-bright);
+  font-weight: 700;
+}
+
+/* ============ AUDIENCE ============ */
+.audience {
+  background: var(--bg-soft);
+}
+.aud-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+.aud-card {
+  padding: 36px 28px;
+  text-align: center;
+  background: var(--surface);
+  border-radius: 14px;
+  transition: all 0.3s;
+}
+.aud-card:hover {
+  background: linear-gradient(160deg, rgba(212, 162, 76, 0.1), var(--surface));
+}
+.aud-icon {
+  width: 60px; height: 60px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1000;
+  font-weight: 900;
+  font-size: 24px;
+}
+.aud-card h4 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.aud-card p { font-size: 15px; color: var(--ink-soft); }
+
+/* ============ EVENT INFO ============ */
+.event {
+  background:
+    linear-gradient(135deg, rgba(212, 162, 76, 0.06), transparent),
+    var(--bg);
+}
+.event-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 50px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+.event-card .label {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  background: rgba(212, 162, 76, 0.1);
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+}
+.event-card h2 {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 36px);
+  margin-bottom: 32px;
+  color: var(--ink);
+}
+.event-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  text-align: left;
+  margin-bottom: 40px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.event-info .item .l {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.event-info .item .d {
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ============ FAQ ============ */
+.faq {
+  background: var(--bg-soft);
+}
+.faq-list { max-width: 860px; margin: 50px auto 0; }
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.faq-q {
+  padding: 24px 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+}
+.faq-q::after {
+  content: "+";
+  font-size: 28px;
+  color: var(--gold);
+  font-weight: 300;
+  transition: transform 0.3s;
+}
+.faq-item.open .faq-q::after {
+  transform: rotate(45deg);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.faq-item.open .faq-a {
+  max-height: 600px;
+  padding: 0 0 24px;
+}
+
+/* ============ FINAL CTA ============ */
+.final-cta {
+  background:
+    radial-gradient(ellipse at center, rgba(212, 162, 76, 0.2), transparent 60%),
+    linear-gradient(180deg, var(--bg-soft), var(--bg));
+  text-align: center;
+  padding: 120px 0;
+}
+.final-cta h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.final-cta h2 .accent {
+  color: var(--gold-bright);
+}
+.final-cta p {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+.final-cta .countdown {
+  font-family: var(--display);
+  letter-spacing: 6px;
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  background: #060a10;
+  padding: 50px 0 30px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.foot-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.foot-top .brand {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--gold-bright);
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+.foot-bot {
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+}
+
+/* ============ FLOATING BUTTON ============ */
+.float-cta {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  color: #1a1000;
+  padding: 16px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 12px 32px rgba(212, 162, 76, 0.5);
+  z-index: 50;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: floatPulse 2.5s infinite;
+}
+@keyframes floatPulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@media (max-width: 600px) {
+  .float-cta { padding: 14px 20px; font-size: 13px; }
+  .subsidy-banner { gap: 16px; padding: 20px 22px; }
+  .subsidy-text { max-width: 100%; }
+  .event-card { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ STICKY TOP BAR ============ -->
+<div class="topbar">
+  💰 經濟部商業發展署「強化韌性計畫」單店導入 ─ <strong>店家最高補助 10 萬元，名額有限！</strong>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="logo">銷售式 AI <span>· 2026 高峰會</span></div>
+    <!-- 表單連結 #1 -->
+    <a class="nav-cta" href="YOUR_FORM_URL_HERE" target="_blank" rel="noopener">立即報名 →</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      2026 GLOBAL SALES AI SUMMIT
+    </div>
+
+    <h1>
+      不要再用 AI <span class="strike">產內容</span><br>
+      要用 AI 真正<span class="accent">創造業績</span>
+    </h1>
+
+    <p class="hero-sub">
+      多數企業已開始使用 AI，但仍停留在「生成內容」的階段。
+      本論壇將帶你從<strong style="color:var(--gold-bright)">生成式 AI 升級到銷售式 AI</strong>，
+      讓 AI 從素材工具，進化為能夠參與客流導入、轉化與成交的營收系統。
+    </p>
+
+    <!-- Subsidy callout -->
+    <div class="subsidy-banner">
+      <div class="subsidy-amount">
+        <small>NT$</small>100,000
+      </div>
+      <div class="subsidy-text">
+        <div class="t">政府補助・單店上限</div>
+        <div class="b">經濟部「強化韌性計畫」<br>店家導入 AI 解決方案最高補助 <em>10 萬元</em></div>
+      </div>
+    </div>
+
+    <div class="hero-cta-group">
+      <!-- 表單連結 #2 -->
+      <a class="btn-primary" href="YOUR_FORM_URL_HERE" target="_blank" rel="noopener">
+        免費報名高峰會 <span class="arrow">→</span>
+      </a>
+      <a class="btn-secondary" href="#subsidy">了解政府補助</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAIN POINTS ============ -->
+<section class="pain">
+  <div class="container">
+    <div class="section-eyebrow">2026 AI 分水嶺</div>
+    <h2 class="section-title">當多數企業還在「<span class="accent">用 AI 產內容</span>」，<br>少數企業已經在用 AI <span class="accent">創造業績</span></h2>
+    <p class="section-lead">關鍵差距不在工具，而在「應用層級」。本次高峰會將解析 AI 銷售頁如何賦能企業商務增長，為組織提供可複製、可量化的新商模。</p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="num">01</div>
+        <h3>AI 銷售商務全景</h3>
+        <p>聚焦 AI 應用從生成（Production）到轉化（Conversion）的完整商務鏈路。AI 圖文素材、分眾行銷、導購到成交的整合實踐。</p>
+      </div>
+      <div class="pain-card">
+        <div class="num">02</div>
+        <h3>銷售頁商務應用</h3>
+        <p>讓 AI 不只是內容產出工具，更能自動識別客戶需求、製作頁面並推進成交，在客戶溝通中產生真正的商務價值。</p>
+      </div>
+      <div class="pain-card">
+        <div class="num">03</div>
+        <h3>全通路經營整合</h3>
+        <p>將 AI 成交邏輯融入線上／線下銷售場域，打造即時、高度個性化、可衡量成效的商務體驗。</p>
+      </div>
+      <div class="pain-card">
+        <div class="num">04</div>
+        <h3>破億成功案例</h3>
+        <p>解析企業如何從生成式 AI 全面升級為藉由 AI 銷售頁達成破億銷售額的商務應用案例與已被市場驗證的成功流程。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUBSIDY DETAIL ============ -->
+<section class="subsidy" id="subsidy">
+  <div class="container">
+    <div class="section-eyebrow">GOVERNMENT GRANT · 政府補助</div>
+    <h2 class="section-title">店家導入 AI，最高拿回 <span class="accent">10 萬元補助</span></h2>
+    <p class="section-lead">
+      經濟部商業發展署「<strong style="color:var(--ink)">提升商業服務業營運效能強化韌性計畫</strong>」
+      ─ 個案補助・單店導入，協助店家以最低成本導入 AI 解決方案，加速數位轉型。
+    </p>
+
+    <div class="subsidy-layout">
+
+      <!-- LEFT: amount card -->
+      <div class="subsidy-detail-card">
+        <span class="badge">單店補助上限</span>
+        <div class="subsidy-amount" style="font-size:84px;">
+          <small>NT$</small>100,000
+        </div>
+        <p style="color:var(--ink-soft); margin-top:8px; font-size:15px;">補助金額以方案總額之 <strong style="color:var(--gold-bright)">50% 為上限</strong>，單一店家補助 1 次為限。</p>
+
+        <div class="kv">
+          <div class="kv-row">
+            <div class="k">補助對象</div>
+            <div class="v">商業服務業店家<br>(批發零售、餐飲、物流、休憩服務、生活服務業)</div>
+          </div>
+          <div class="kv-row">
+            <div class="k">訂閱條件</div>
+            <div class="v">AI 解決方案訂閱期 <strong>6 個月以上</strong></div>
+          </div>
+          <div class="kv-row">
+            <div class="k">撥款條件</div>
+            <div class="v">實際使用滿 <strong>3 個月後</strong>申請補助款</div>
+          </div>
+          <div class="kv-row">
+            <div class="k">受理期間</div>
+            <div class="v">即日起 ~ <strong>116 年 10 月 20 日</strong><br>（或補助經費用罄止）</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: who can apply -->
+      <div class="subsidy-info">
+        <h3 style="font-family:var(--serif); font-size:24px; color:var(--ink); margin-bottom:10px;">
+          申請資格・你需要符合
+        </h3>
+        <p style="color:var(--ink-soft); font-size:14px;">符合以下條件的店家，皆可申請此補助方案：</p>
+        <ul>
+          <li>依法辦理<strong>公司登記、商業登記、有限合夥登記</strong>，或有稅籍登記之營利事業</li>
+          <li>公司／商業／稅籍登記營業狀況<strong>非歇業或停業</strong></li>
+          <li>非為陸資企業、外國營利事業在臺設立之分公司</li>
+          <li>受國際經貿局勢變動而<strong>直接或間接影響</strong>之商業服務業店家</li>
+          <li>未重複受「強化韌性計畫」其他個案補助或輔導</li>
+        </ul>
+
+        <div class="gov-note">
+          📌 資料來源：經濟部商業發展署「商業服務業智慧轉型專區」<br>
+          詳細申請辦法請參考 <a href="https://www.smebiz.org.tw/project-tenacity_shop.php" target="_blank" rel="noopener">官方專案頁面</a>，
+          或至 <a href="https://aishop.smebiz.org.tw/" target="_blank" rel="noopener">店家申請管理系統</a>線上申請。
+        </div>
+
+        <!-- 表單連結 #3 -->
+        <a class="btn-primary" href="YOUR_FORM_URL_HERE" target="_blank" rel="noopener" style="margin-top:28px;">
+          我想了解如何申請 <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADVANTAGES ============ -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">4 ADVANTAGES · 講座四大優勢</div>
+    <h2 class="section-title">不只是學會用 AI，<br>而是建立一套「<span class="accent">降低成本、創造業績</span>」的商業流程</h2>
+
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="num">01</div>
+        <h3>內容與業績聯動</h3>
+        <p>打破 AI 內容僅為品牌曝光的模式，建立企業對客流轉化為訂單、高效導客流程與銷售成交率提升的明確做法。</p>
+      </div>
+      <div class="adv-card">
+        <div class="num">02</div>
+        <h3>高效銷售頁產出</h3>
+        <p>實現 AI 銷售頁的高效產出與多平台覆蓋策略，顯著提升品牌曝光與客戶成交效率。</p>
+      </div>
+      <div class="adv-card">
+        <div class="num">03</div>
+        <h3>大幅提升客戶體驗</h3>
+        <p>結合分眾式 AI 技術，讓商品內容轉化為不同客戶即時能高效理解的內容，大幅提升商品銷售效益。</p>
+      </div>
+      <div class="adv-card">
+        <div class="num">04</div>
+        <h3>企業 AI 競爭力</h3>
+        <p>賦能企業掌握 2026 年最新的 AI 商業應用觀念與案例，建立企業專屬的自動化營收系統。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASES ============ -->
+<section class="cases">
+  <div class="container">
+    <div class="million-banner">
+      <div class="label">REAL RESULTS</div>
+      <div class="num">$10,000,000</div>
+      <div class="sub">實戰應用！我們做到了破千萬募資銷售成績</div>
+    </div>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="tag">3C 賣家 / Tom</div>
+        <blockquote>創業初期，每一分錢都很關鍵。利用 AI 生成商品頁，馬上丟給朋友幫忙推廣，一個禮拜就賣了 200 多台！</blockquote>
+        <div class="who">— 3C 產品電商</div>
+      </div>
+      <div class="case-card">
+        <div class="tag">露營達人 / Sunny</div>
+        <blockquote>我是露營愛好者，在國外看到很棒的產品想引進台灣。馬上用 AI 製作產品網頁測試，我確定它在台灣能賣得很好！</blockquote>
+        <div class="who">— 戶外用品引進</div>
+      </div>
+      <div class="case-card">
+        <div class="tag">文創開發 / Kelly</div>
+        <blockquote>曾經透過團隊自行開發「好裹物」達到近 600 萬募資成績，這次用 AI 製作銷售頁，成交率比之前還好！</blockquote>
+        <div class="who">— 文創品牌</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDIENCE ============ -->
+<section class="audience">
+  <div class="container">
+    <div class="section-eyebrow">WHO SHOULD JOIN</div>
+    <h2 class="section-title">如果你正面對這些問題，<br>本場活動<span class="accent">就是為你準備的</span></h2>
+
+    <div class="aud-grid">
+      <div class="aud-card">
+        <div class="aud-icon">企</div>
+        <h4>企業經營者</h4>
+        <p>讓 AI 升級為營收引擎，解決「做很多，卻沒有明顯成長」的問題。</p>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">行</div>
+        <h4>行銷 / 業務主管</h4>
+        <p>流量有了，但轉換不穩。希望內容真正帶來詢單與成交。</p>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">店</div>
+        <h4>實體店家經營者</h4>
+        <p>想透過政府補助低成本導入 AI，加速數位轉型、提升營運效能。</p>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">AI</div>
+        <h4>AI 工具使用者</h4>
+        <p>已經在用 AI，但缺乏整合與商業應用方向，希望建立可落地的營運流程。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENT INFO ============ -->
+<section class="event">
+  <div class="container">
+    <div class="event-card">
+      <span class="label">FREE EVENT · 免費入場</span>
+      <h2>2026 銷售式 AI 趨勢高峰會</h2>
+
+      <div class="event-info">
+        <div class="item">
+          <div class="l">活動日期</div>
+          <div class="d">2026/3/27（五）<br>13:00 – 16:00</div>
+        </div>
+        <div class="item">
+          <div class="l">活動地點</div>
+          <div class="d">集思交通部會議中心<br>202 會議廳</div>
+        </div>
+        <div class="item">
+          <div class="l">活動地址</div>
+          <div class="d">臺北市中正區<br>杭州南路一段 24 號 2 樓</div>
+        </div>
+        <div class="item">
+          <div class="l">免費名額</div>
+          <div class="d">限量 100 位<br>額滿為止</div>
+        </div>
+      </div>
+
+      <!-- 表單連結 #4 -->
+      <a class="btn-primary" href="YOUR_FORM_URL_HERE" target="_blank" rel="noopener">
+        免費報名 + 了解補助 <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-eyebrow">FAQ · 常見問題</div>
+    <h2 class="section-title">參加前，<span class="accent">你可能想問</span></h2>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">政府補助是什麼？我真的可以申請嗎？</div>
+        <div class="faq-a" style="padding: 0 0 0;">
+          <div style="padding-top:10px;">
+          這是經濟部商業發展署推動的「<strong>提升商業服務業營運效能強化韌性計畫 ─ 個案補助・單店導入</strong>」。<br>
+          只要你是依法登記的營利事業店家（批發零售、餐飲、物流、休憩服務、生活服務業），且非陸資企業，符合資格即可申請。
+          補助金額為 AI 解決方案總額的 50%，<strong style="color:var(--gold-bright)">單店最高 10 萬元</strong>。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">補助申請流程是怎樣？要多久才能拿到錢？</div>
+        <div class="faq-a">
+          <div style="padding-top:10px;">
+          流程：① 線上申請帳號（工商憑證 IC 卡或負責人身分證） → ② 填寫補助申請書 → ③ 通過資格審查 → ④ 購買並使用 AI 解決方案 → ⑤ <strong>使用滿 3 個月後</strong>，向執行單位申請補助款。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">「銷售式 AI」與「生成式 AI」有什麼不同？</div>
+        <div class="faq-a">
+          <div style="padding-top:10px;">
+          生成式 AI 主要應用於圖文影音製作；<strong>銷售式 AI</strong> 則強調主動獲客與轉化。
+          我們分享的是如何建立企業專屬的自動獲客系統，讓 AI 高效製作素材、進行消費者行為分析，
+          從「工具」升級為「生財器具」，讓客戶主動找上門並成交。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">我沒有技術背景，也能應用這些工具嗎？</div>
+        <div class="faq-a">
+          <div style="padding-top:10px;">
+          可以。本論壇核心理念是「<strong>化繁為簡，讓 AI 為你所用</strong>」。
+          內容專注於「銷售商務落地」，以實際案例引導您快速藉由 AI 取得商業成果。
+          也可藉由專業導師協助您進行企業 AI 賦能與導入。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">參加論壇要費用嗎？</div>
+        <div class="faq-a">
+          <div style="padding-top:10px;">
+          <strong>本場高峰會免費入場</strong>，限量 100 位實體名額，採線上報名、額滿為止。
+          建議盡早完成報名表單，以確保席次。
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="countdown">⚡ LIMITED SEATS · 名額有限</div>
+    <h2>把握政府補助黃金期<br>讓 AI 真正<span class="accent">幫你賺錢</span></h2>
+    <p>免費參加高峰會 + 一次掌握「最高 10 萬元政府補助」申請資訊<br>掌握 2026 銷售式 AI 商業應用，從今天開始。</p>
+    <!-- 表單連結 #5 -->
+    <a class="btn-primary" href="YOUR_FORM_URL_HERE" target="_blank" rel="noopener">
+      立即免費報名 <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <div class="brand">銷售式 AI · 2026 高峰會</div>
+        <div>從生成式 AI 到銷售式 AI ─ 讓內容真正轉成營收能力</div>
+      </div>
+      <div style="text-align:right;">
+        <div>政府補助資源來源：</div>
+        <div><a href="https://www.smebiz.org.tw/project-tenacity_shop.php" target="_blank" rel="noopener" style="color:var(--gold);">經濟部商業發展署・商業服務業智慧轉型專區</a></div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      © 2026 銷售式 AI 高峰會 ・ 政府補助申請以官方公告為準 ・ 主辦單位保有活動最終解釋權
+    </div>
+  </div>
+</footer>
+
+<!-- ============ FLOATING CTA ============ -->
+<!-- 表單連結 #6 -->
+<a class="float-cta" href="YOUR_FORM_URL_HERE" target="_blank" rel="noopener">
+  📋 立即報名
+</a>
+
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// Default open first FAQ
+document.querySelector('.faq-item')?.classList.add('open');
+</script>
+
+</body>
+</html>
