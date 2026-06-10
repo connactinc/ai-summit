@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Baby Shark Run | 廣告成效分析報告</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --blue:       #0078C2;
+    --blue-dark:  #005A9E;
+    --blue-light: #EBF5FB;
+    --blue-mid:   #D0E9F7;
+    --orange:     #E8601A;
+    --orange-light:#FEF0E7;
+    --yellow:     #D4A017;
+    --yellow-light:#FEF9EC;
+    --green:      #1E8449;
+    --green-light:#E9F7EF;
+    --red:        #C0392B;
+    --red-light:  #FDEDEC;
+    --purple:     #5B2C8D;
+    --purple-light:#F5EEF8;
+    --gray-50:    #F8FAFC;
+    --gray-100:   #F2F4F6;
+    --gray-200:   #E0E4E8;
+    --gray-400:   #9AA5B4;
+    --gray-600:   #5A6575;
+    --gray-800:   #2C3E50;
+    --text:       #1A2533;
+    --card:       #FFFFFF;
+    --radius:     12px;
+    --shadow:     0 2px 10px rgba(0,0,0,0.07);
+    --shadow-lg:  0 4px 20px rgba(0,0,0,0.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,'Segoe UI','Helvetica Neue',Arial,'微軟正黑體',sans-serif;
+    background:var(--gray-100);
+    color:var(--text);
+    line-height:1.65;
+    font-size:14px;
+  }
+
+  /* HEADER */
+  .rpt-header{
+    background:linear-gradient(135deg,#0078C2 0%,#005A9E 55%,#003A75 100%);
+    color:white;padding:36px 40px;position:relative;overflow:hidden;
+  }
+  .rpt-header::before{
+    content:'🦈';position:absolute;right:50px;top:50%;
+    transform:translateY(-50%);font-size:110px;opacity:.10;
+  }
+  .rpt-header h1{font-size:26px;font-weight:800;margin-bottom:6px;}
+  .rpt-header .sub{font-size:14px;opacity:.85;margin-bottom:18px;}
+  .header-tags{display:flex;gap:10px;flex-wrap:wrap;}
+  .header-tags span{background:rgba(255,255,255,.18);padding:4px 12px;border-radius:20px;font-size:12px;}
+
+  /* ALERT */
+  .alert-bar{
+    background:linear-gradient(90deg,#C0392B,#A93226);
+    color:white;padding:14px 40px;
+    display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;
+  }
+  .alert-bar .ico{font-size:22px;animation:blink 1.4s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+
+  /* LAYOUT */
+  .wrap{max-width:1200px;margin:0 auto;padding:28px 20px;}
+
+  /* SECTION */
+  .sec{margin-bottom:36px;}
+  .sec-title{
+    font-size:17px;font-weight:800;color:var(--blue-dark);
+    margin-bottom:18px;padding-bottom:9px;
+    border-bottom:3px solid var(--blue);
+    display:flex;align-items:center;gap:8px;
+  }
+
+  /* KPI GRID */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:28px;}
+  .kpi{
+    background:var(--card);border-radius:var(--radius);
+    padding:18px 20px;box-shadow:var(--shadow);
+    border-left:4px solid var(--blue);transition:transform .2s;
+  }
+  .kpi:hover{transform:translateY(-2px);}
+  .kpi.red{border-left-color:var(--red);background:var(--red-light);}
+  .kpi.green{border-left-color:var(--green);background:var(--green-light);}
+  .kpi.orange{border-left-color:var(--orange);background:var(--orange-light);}
+  .kpi.yellow{border-left-color:var(--yellow);background:var(--yellow-light);}
+  .kpi.purple{border-left-color:var(--purple);background:var(--purple-light);}
+  .kpi-lbl{font-size:11px;color:var(--gray-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+  .kpi-val{font-size:24px;font-weight:800;color:var(--text);margin-bottom:3px;}
+  .kpi-val.red{color:var(--red);}
+  .kpi-val.green{color:var(--green);}
+  .kpi-val.orange{color:var(--orange);}
+  .kpi-sub{font-size:11px;color:var(--gray-600);}
+
+  /* CARD */
+  .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:16px;}
+  .card-title{font-size:14px;font-weight:700;color:var(--gray-800);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+  .chart-box{position:relative;height:270px;}
+  .chart-box.tall{height:310px;}
+
+  /* TWO COL */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:768px){.two-col{grid-template-columns:1fr;}}
+
+  /* PHASE CARDS */
+  .phase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px;}
+  .ph{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);position:relative;}
+  .ph::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:var(--radius) var(--radius) 0 0;}
+  .ph.p1::before{background:var(--green);}  .ph.p1{background:var(--green-light);}
+  .ph.p2::before{background:var(--red);}    .ph.p2{background:var(--red-light);}
+  .ph.p3::before{background:var(--orange);} .ph.p3{background:var(--orange-light);}
+  .ph.p4::before{background:var(--blue);}   .ph.p4{background:var(--blue-light);}
+  .ph-lbl{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+  .ph-lbl.g{color:var(--green);}.ph-lbl.r{color:var(--red);}.ph-lbl.o{color:var(--orange);}.ph-lbl.b{color:var(--blue);}
+  .ph-title{font-size:14px;font-weight:700;margin-bottom:11px;color:var(--gray-800);}
+  .ph-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.05);}
+  .ph-row:last-child{border:none;}
+  .ph-row .k{color:var(--gray-600);}
+  .ph-row .v{font-weight:700;color:var(--text);}
+  .ph-note{margin-top:10px;padding:8px 10px;border-radius:7px;font-size:11px;line-height:1.5;}
+  .ph-note.g{background:rgba(30,132,73,.12);color:#145A32;}
+  .ph-note.r{background:rgba(192,57,43,.12);color:#922B21;}
+  .ph-note.o{background:rgba(232,96,26,.12);color:#784212;}
+  .ph-note.b{background:rgba(0,120,194,.12);color:#1A5276;}
+
+  /* PROGRESS */
+  .prog-wrap{background:var(--gray-200);border-radius:20px;height:18px;overflow:hidden;margin:7px 0;}
+  .prog-fill{height:100%;border-radius:20px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:10px;font-weight:800;color:white;}
+
+  /* TABLES */
+  .tbl{width:100%;border-collapse:collapse;}
+  .tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--gray-200);font-size:13px;text-align:center;}
+  .tbl th{background:var(--blue);color:white;font-weight:700;}
+  .tbl th:first-child,.tbl td:first-child{text-align:left;}
+  .tbl tr:nth-child(even) td{background:var(--gray-50);}
+  .tbl tr:hover td{background:var(--blue-light);}
+  .bdg{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;}
+  .bdg-b{background:var(--blue-light);color:var(--blue-dark);}
+  .bdg-g{background:var(--green-light);color:var(--green);}
+  .bdg-r{background:var(--red-light);color:var(--red);}
+  .bdg-o{background:var(--orange-light);color:var(--orange);}
+
+  /* TIMELINE */
+  .tl{position:relative;padding-left:38px;}
+  .tl::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:3px;
+    background:linear-gradient(to bottom,var(--green),var(--blue),var(--orange));border-radius:2px;}
+  .tl-item{position:relative;margin-bottom:24px;}
+  .tl-dot{position:absolute;left:-30px;top:8px;width:22px;height:22px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
+    color:white;border:3px solid var(--gray-100);box-shadow:var(--shadow);}
+  .dot-done{background:var(--green);} .dot-next{background:var(--blue);} .dot-fut{background:var(--orange);}
+  .tl-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+  .tl-card h3{font-size:14px;font-weight:700;margin-bottom:7px;}
+  .tl-budget{font-size:20px;font-weight:800;margin-bottom:6px;}
+  .tl-budget.done{color:var(--green);}
+  .tl-budget.next{color:var(--blue);}
+  .tl-budget.fut{color:var(--orange);}
+  .tl-p{font-size:12px;color:var(--gray-600);margin-bottom:7px;}
+  .tl-list{display:flex;flex-direction:column;gap:3px;margin-top:7px;}
+  .tl-li{font-size:12px;color:var(--gray-600);display:flex;gap:6px;align-items:flex-start;}
+  .tl-li::before{content:'▸';color:var(--blue);font-size:10px;flex-shrink:0;padding-top:2px;}
+  .tl-trigger{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:12px;background:var(--blue-light);color:var(--blue-dark);}
+
+  /* INFO / WARNING */
+  .info-box{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:8px;padding:14px;margin:12px 0;font-size:13px;}
+  .warn-box{background:var(--orange-light);border-left:4px solid var(--orange);border-radius:8px;padding:14px;margin:12px 0;font-size:13px;}
+  .info-box strong,.warn-box strong{display:block;margin-bottom:4px;font-size:13px;}
+
+  /* ======================= SIMULATOR ======================= */
+  .sim-wrap{
+    background:var(--blue-light);
+    border:2px solid var(--blue-mid);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .sim-wrap h2{font-size:18px;font-weight:800;color:var(--blue-dark);margin-bottom:6px;}
+  .sim-wrap .desc{font-size:13px;color:var(--gray-600);margin-bottom:22px;}
+  .sim-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+  @media(max-width:640px){.sim-inputs{grid-template-columns:1fr;}}
+  .sim-field label{display:block;font-size:11px;font-weight:700;color:var(--blue-dark);
+    text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+  .sim-field input,.sim-field select{
+    width:100%;padding:11px 14px;border-radius:8px;
+    border:2px solid var(--blue-mid);background:var(--card);
+    color:var(--text);font-size:15px;font-family:inherit;
+    transition:border-color .2s;
+  }
+  .sim-field input:focus,.sim-field select:focus{outline:none;border-color:var(--blue);}
+  .sim-btn{
+    background:var(--blue);color:white;border:none;
+    padding:11px 28px;border-radius:8px;font-size:14px;font-weight:700;
+    cursor:pointer;font-family:inherit;transition:background .2s,transform .15s;
+  }
+  .sim-btn:hover{background:var(--blue-dark);transform:translateY(-1px);}
+
+  .sim-results{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;}
+  @media(max-width:768px){.sim-results{grid-template-columns:repeat(2,1fr);}}
+  .sim-card{
+    background:var(--card);border:1px solid var(--blue-mid);
+    border-radius:10px;padding:16px;text-align:center;box-shadow:var(--shadow);
+  }
+  .sim-card .sl{font-size:10px;color:var(--gray-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+  .sim-card .sv{font-size:28px;font-weight:800;color:var(--blue-dark);}
+  .sim-card .su{font-size:11px;color:var(--gray-400);margin-top:3px;}
+  .sim-card .sf{font-size:10px;color:var(--gray-400);margin-top:5px;font-style:italic;}
+
+  .ratio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;}
+  .ratio-card{
+    background:var(--card);border:1px solid var(--blue-mid);
+    border-radius:10px;padding:14px;text-align:center;
+  }
+  .ratio-card .rv{font-size:26px;font-weight:800;color:var(--blue-dark);margin-bottom:4px;}
+  .ratio-card .rl{font-size:11px;color:var(--gray-600);line-height:1.4;}
+
+  .sim-note{
+    margin-top:16px;background:var(--yellow-light);
+    border:1px solid #F0C040;border-radius:8px;
+    padding:12px 14px;font-size:12px;color:#5D4037;
+  }
+
+  /* IP COMPARISON */
+  .ip-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  @media(max-width:640px){.ip-grid{grid-template-columns:1fr;}}
+  .ip-card{border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+  .ip-card.ours{background:var(--blue-light);border:2px solid var(--blue-mid);}
+  .ip-card.them{background:var(--gray-50);border:2px solid var(--gray-200);}
+  .ip-card .ip-name{font-size:15px;font-weight:800;margin-bottom:12px;}
+  .ip-card .ip-name.b{color:var(--blue-dark);}
+  .ip-card .ip-name.g{color:var(--gray-800);}
+  .ip-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+  .ip-row:last-child{border:none;}
+  .ip-row .ik{color:var(--gray-600);}
+  .ip-row .iv{font-weight:700;}
+
+  /* DISCLAIMER */
+
+
+  /* DATA TABLE */
+  .dtbl-wrap{overflow-x:auto;}
+  .dtbl{width:100%;border-collapse:collapse;font-size:12px;}
+  .dtbl th{background:var(--blue);color:white;padding:9px 11px;text-align:center;white-space:nowrap;font-weight:600;}
+  .dtbl td{padding:8px 11px;text-align:center;border-bottom:1px solid var(--gray-200);white-space:nowrap;}
+  .dtbl tr:nth-child(even) td{background:var(--gray-50);}
+  .dtbl tr:hover td{background:var(--blue-light);}
+  .dtbl .gtm td{background:#FEF9EC!important;}
+  .dtbl .fat td{background:var(--orange-light)!important;}
+  .leg{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+  .leg-i{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-600);}
+  .leg-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0;}
+
+  /* FOOTER */
+  .rpt-footer{background:var(--gray-800);color:rgba(255,255,255,.55);
+    text-align:center;padding:18px;font-size:12px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="rpt-header">
+  <h1>🦈 2026 Baby Shark Run｜廣告成效分析報告</h1>
+  <div class="sub">廣告代理商定期回報｜數據統計區間：2026/05/11 － 2026/06/09</div>
+  <div class="header-tags">
+    <span>📅 報告日期：2026/06/10</span>
+    <span>📊 廣告平台：Meta Ads</span>
+    <span>🏃 台中 9/13｜高雄 9/20｜新北 9/27</span>
+    <span>💰 第一階段預算：NT$160,000</span>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert-bar">
+  <span class="ico">🚨</span>
+  <span>緊急提醒：第一階段 16 萬預算已使用 <strong>95.8%</strong>，剩餘約 NT$6,658，預計 <strong>6/12 前廣告停止投放</strong>。後期 KOL 物資開箱、倒數收單素材即將上線，需提前追加預算承接流量。</span>
+</div>
+
+<div class="wrap">
+
+<!-- ① KPI 總覽 -->
+<div class="sec">
+  <div class="sec-title"><span>📌</span>核心成效總覽（5/11－6/9）</div>
+  <div class="kpi-grid">
+    <div class="kpi red">
+      <div class="kpi-lbl">已使用預算</div>
+      <div class="kpi-val red">$153,342</div>
+      <div class="kpi-sub">總預算 $160,000｜剩餘 $6,658</div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:95.8%;background:linear-gradient(90deg,#27AE60,#F39C12,#C0392B);">95.8%</div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">廣告 Purchase</div>
+      <div class="kpi-val">372 筆</div>
+      <div class="kpi-sub">Meta 廣告後台歸因購買</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-lbl">實際訂單（運筆）</div>
+      <div class="kpi-val green">981 筆</div>
+      <div class="kpi-sub">Purchase × 訂單倍數 2.6×</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-lbl">累積報名人數</div>
+      <div class="kpi-val">3,069 人</div>
+      <div class="kpi-sub">訂單 × 人數倍數 3.1×</div>
+    </div>
+    <div class="kpi orange">
+      <div class="kpi-lbl">整體平均 CPA</div>
+      <div class="kpi-val orange">$412.2</div>
+      <div class="kpi-sub">廣告花費 ÷ Meta Purchase</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-lbl">整體 ROAS</div>
+      <div class="kpi-val green">7.1×</div>
+      <div class="kpi-sub">廣告轉換值 ÷ 廣告花費</div>
+    </div>
+  </div>
+
+  <!-- Budget depletion -->
+  <div class="card">
+    <div class="card-title">⏰ 預算消耗時程與停止時間推估</div>
+    <div class="two-col">
+      <div>
+        <table class="tbl">
+          <thead><tr><th>估算方式</th><th>日均花費</th><th>剩餘天數</th><th>預估停止</th></tr></thead>
+          <tbody>
+            <tr><td>全期平均（5/11-6/9）</td><td>$5,111</td><td>1.3 天</td><td><span class="bdg bdg-r">6/10~6/11</span></td></tr>
+            <tr><td>近 7 日平均（6/3-6/9）</td><td>$4,162</td><td>1.6 天</td><td><span class="bdg bdg-r">6/11</span></td></tr>
+            <tr><td>近 3 日平均（6/7-6/9）</td><td>$3,317</td><td>2.0 天</td><td><span class="bdg bdg-r">6/11~6/12</span></td></tr>
+          </tbody>
+        </table>
+        <div class="warn-box" style="margin-top:12px;">
+          <strong>⚠️ 結論：廣告預計 6/12 前停止投放</strong>
+          現有預算最快 6/10、最遲 6/12 用完。若不提前追加，廣告將中斷，前期累積的再行銷受眾無法有效收單。
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">後期素材即將啟動，正是需要廣告費承接的關鍵：</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--green-light);padding:10px 14px;border-radius:8px;font-size:13px;border-left:3px solid var(--green);">✅ 已上線：人偶見面會實拍素材（6/9 起）</div>
+          <div style="background:var(--green-light);padding:10px 14px;border-radius:8px;font-size:13px;border-left:3px solid var(--green);">✅ 已上線：海底探險任務背包素材（6/9 起）</div>
+          <div style="background:var(--blue-light);padding:10px 14px;border-radius:8px;font-size:13px;border-left:3px solid var(--blue);">🔜 即將上線：KOL／KOC 物資開箱影片</div>
+          <div style="background:var(--blue-light);padding:10px 14px;border-radius:8px;font-size:13px;border-left:3px solid var(--blue);">🔜 即將執行：倒數報名、物資截止提醒</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 30天時間軸全覽 -->
+<div class="sec">
+  <div class="sec-title"><span>📈</span>30 天完整時間軸—報名成長與廣告效率</div>
+  <div class="info-box" style="margin-bottom:16px;">
+    <strong>先看整體趨勢，再看局部細節。</strong>以下圖表依「決策重要性」排序：先看累積報名成長走勢（結果），再看 CPA 效率（成因），最後看每日投資量與訂單量（執行細節）。
+  </div>
+    <div class="card">
+    <div class="card-title">📈 累積報名人數成長曲線</div>
+    <div class="chart-box"><canvas id="c-cumul"></canvas></div>
+    <div class="leg" style="margin-top:10px;">
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(30,132,73,.8);"></div>累積報名人數</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(0,120,194,.6);width:20px;border-radius:2px;height:3px;border-top:2px dashed #0078C2;background:none;"></div>累積訂單（運筆）</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(220,53,69,.15);width:20px;border-radius:2px;height:12px;"></div>GTM 異常期（5/21–5/22）</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(232,96,26,.12);width:20px;border-radius:2px;height:12px;"></div>素材疲乏期（5/23–5/27）</div>
+    </div>
+    <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">* GTM 異常期（5/21–5/22）廣告追蹤中斷，成長曲線斜率偏低屬正常；素材疲乏期（5/23–5/27）新增速度明顯放緩。</div>
+    <div class="info-box" style="margin-top:10px;">
+      <strong>目前累積報名人數：3,069 人（截至 6/9）</strong>
+      每日平均約增加 102 人（3,069 ÷ 30 天）。若廣告 6/12 中斷，成長動能將趨近停滯。
+    </div>
+  </div>
+  <div class="card">
+      <div class="card-title">📉 每日 CPA 趨勢</div>
+      <div class="chart-box"><canvas id="c-cpa"></canvas></div>
+      <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">* 5/22 CPA 極值（$2,896.5）已截值至 1,200 顯示</div>
+    </div>
+    
+    <div class="card">
+    <div class="card-title">💰 每日廣告花費 & Meta Purchase（含階段標記）</div>
+    <div class="chart-box tall"><canvas id="c-spend"></canvas></div>
+    <div class="leg" style="margin-top:10px;">
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(0,120,194,.7)"></div>每日花費</div>
+      <div class="leg-i"><div class="leg-dot" style="background:#E8601A"></div>Meta Purchase（右軸）</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(220,53,69,.6);width:20px;border-radius:2px;height:12px;"></div>GTM 異常期（5/21–5/22）：花費偏高但 Purchase 失真</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(232,96,26,.6);width:20px;border-radius:2px;height:12px;"></div>素材疲乏期（5/23–5/27）：花費高但 Purchase 偏低</div>
+    </div>
+    <div style="font-size:11px;color:var(--gray-400);margin-top:4px;">* 5/18 Purchase 僅 7 筆（已列為統計異常值）；5/22 Purchase 僅 2 筆（GTM 追蹤中斷所致）。</div>
+  </div>
+  
+  <div class="card">
+      <div class="card-title">👥 每日訂單數 vs 報名人數</div>
+      <div class="chart-box"><canvas id="c-daily"></canvas></div>
+      <div class="leg" style="margin-top:8px;">
+        <div class="leg-i"><div class="leg-dot" style="background:rgba(30,132,73,.7);"></div>報名人數</div>
+        <div class="leg-i"><div class="leg-dot" style="background:rgba(0,120,194,.8);"></div>訂單筆數（運筆）</div>
+        <div class="leg-i"><div class="leg-dot" style="background:rgba(220,53,69,.15);width:20px;border-radius:2px;height:12px;"></div>GTM 異常期（5/21–5/22）</div>
+        <div class="leg-i"><div class="leg-dot" style="background:rgba(232,96,26,.12);width:20px;border-radius:2px;height:12px;"></div>素材疲乏期（5/23–5/27）</div>
+      </div>
+      <div style="font-size:11px;color:var(--gray-400);margin-top:4px;">* 5/20 單日報名 358 人為全期最高（開報熱度爆發）；5/22 因 GTM 異常，廣告追蹤中斷，數字偏低屬非常態。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ 倍數說明 -->
+<div class="sec">
+  <div class="sec-title"><span>🔢</span>倍數說明：為什麼用這個數字推估？</div>
+
+  <!-- Card A: Purchase → 訂單 -->
+  <div class="card">
+    <div class="card-title">📌 倍數一｜Meta Purchase → 運筆實際訂單</div>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <div class="chart-box tall"><canvas id="c-mult1"></canvas></div>
+        <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">* 5/18 Purchase=7（極端值，已排除）；5/21-5/22 GTM 異常排除；趨勢線為 7 日移動平均</div>
+      </div>
+      <div>
+        <div style="background:var(--blue-light);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--blue-dark);margin-bottom:6px;">❓ 為什麼 Meta Purchase ≠ 運筆實際訂單？</div>
+            <div style="font-size:12px;color:var(--gray-600);line-height:1.7;">Meta 廣告後台 Purchase 只記錄「從廣告連結點入 7 天內完成報名」的訂單。運動筆記後台還涵蓋自然搜尋、展通虹短網址、媽媽寶寶粉專、口碑擴散等來源。</div>
+          </div>
+          <!-- 統計分析 -->
+          <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--blue-mid);">
+            <div style="font-size:11px;font-weight:700;color:var(--blue-dark);margin-bottom:10px;">📊 統計分析（排除極端值後）</div>
+            <div style="font-size:11px;color:var(--gray-600);margin-bottom:8px;">排除：5/18（Purchase=7，IQR 上界 4.9 以上）、5/21-5/22（GTM 異常）</div>
+            <table style="width:100%;font-size:12px;border-collapse:collapse;">
+              <tr style="background:var(--blue-light);">
+                <td style="padding:5px 8px;font-weight:700;color:var(--blue-dark);">統計方法</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:var(--blue-dark);">數值</td>
+                <td style="padding:5px 8px;color:var(--gray-600);">說明</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-200);">
+                <td style="padding:5px 8px;">平均數（Mean）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">2.6×</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">受高值稍微拉高</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-200);">
+                <td style="padding:5px 8px;">中位數（Median）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">2.7×</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">較不受極值影響，推薦參考</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-200);">
+                <td style="padding:5px 8px;">眾數（Mode）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">多眾*</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">1.9、2.3、2.8、3.2 各出現3次</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;">IQR 區間（Q1–Q3）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">1.9 – 3.2×</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">中間 50% 數值範圍</td>
+              </tr>
+            </table>
+          </div>
+          <!-- 為什麼無法精確 -->
+          <div style="background:var(--yellow-light);border:1px solid #F0C040;border-radius:8px;padding:10px 12px;font-size:11px;color:#5D4037;">
+            <strong style="display:block;margin-bottom:4px;">⚠️ 為什麼無法給出精確倍數？</strong>
+            倍數每天浮動 1.2× – 4.2×，主因是 Meta 廣告後台只計算廣告直接歸因。當廣告預算縮減時，非廣告來源報名比重升高，倍數就變大；反之亦然。且趨勢線顯示倍數在 6 月後有下降趨勢，應以近期數值為主要參考。
+          </div>
+          <div style="background:white;border:2px solid var(--blue-mid);border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:11px;color:var(--gray-600);margin-bottom:4px;">建議使用倍數範圍</div>
+            <div style="font-size:26px;font-weight:800;color:var(--blue-dark);">2.0 – 3.2×</div>
+            <div style="font-size:11px;color:var(--gray-600);">保守估算用 2.0；穩健估算用 2.6；樂觀估算用 3.2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card B: 訂單 → 報名人數 -->
+  <div class="card">
+    <div class="card-title">📌 倍數二｜運筆實際訂單 → 報名人數</div>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <div class="chart-box tall"><canvas id="c-mult2"></canvas></div>
+        <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">* 5/15、5/20、6/2（>3.83×）與 6/9（2.18×，邊界值）已排除；趨勢線顯示人數倍數自 5 月底起呈現下降走勢</div>
+      </div>
+      <div>
+        <div style="background:var(--green-light);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:6px;">❓ 為什麼 1 筆訂單 ≠ 1 位報名者？</div>
+            <div style="font-size:12px;color:var(--gray-600);line-height:1.7;">運動筆記「訂單」以報名手續次數計算，不等於人頭。Baby Shark Run 為親子路跑，一家人可能同一訂單含多人，或多筆訂單含同一家庭成員。</div>
+          </div>
+          <div style="background:white;border-radius:8px;padding:12px;border:1px solid rgba(30,132,73,.3);">
+            <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:10px;">📊 統計分析（排除極端值後）</div>
+            <div style="font-size:11px;color:var(--gray-600);margin-bottom:8px;">排除：5/15（3.9×）、5/20（4.0×）、6/2（3.8×）、6/9（2.2×，IQR 邊界）</div>
+            <table style="width:100%;font-size:12px;border-collapse:collapse;">
+              <tr style="background:var(--green-light);">
+                <td style="padding:5px 8px;font-weight:700;color:var(--green);">統計方法</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:var(--green);">數值</td>
+                <td style="padding:5px 8px;color:var(--gray-600);">說明</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-200);">
+                <td style="padding:5px 8px;">平均數（Mean）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">3.0×</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">與中位數相同，分布對稱</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-200);">
+                <td style="padding:5px 8px;">中位數（Median）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">3.0×</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">平均與中位數一致，數據穩定</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-200);">
+                <td style="padding:5px 8px;">眾數（Mode）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">多眾*</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">2.8、2.9、3.0 各出現 4 次</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;">IQR 區間（Q1–Q3）</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;">2.8 – 3.1×</td>
+                <td style="padding:5px 8px;font-size:11px;color:var(--gray-600);">集中度高，波動較小</td>
+              </tr>
+            </table>
+          </div>
+          <div style="background:var(--yellow-light);border:1px solid #F0C040;border-radius:8px;padding:10px 12px;font-size:11px;color:#5D4037;">
+            <strong style="display:block;margin-bottom:4px;">⚠️ 趨勢警示：人數倍數近期下滑</strong>
+            趨勢線顯示人數倍數從 5 月中旬約 3.2× 持續下降至 6 月的 2.4–2.6×。可能原因：個人報名比例增加、小家庭（1大1小）為主。建議後期估算使用 2.7× 較為保守，不宜繼續套用 3.1×。
+          </div>
+          <div style="background:white;border:2px solid rgba(30,132,73,.3);border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:11px;color:var(--gray-600);margin-bottom:4px;">建議使用倍數範圍</div>
+            <div style="font-size:26px;font-weight:800;color:var(--green);">2.7 – 3.1×</div>
+            <div style="font-size:11px;color:var(--gray-600);">近期趨勢下滑，短期估算建議用 2.7；中長期用 3.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card C: Funnel -->
+  <div class="card">
+    <div class="card-title">🔗 完整推估漏斗：廣告費 → Purchase → 訂單 → 報名人數</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;padding:10px 0 16px;">
+      <div style="text-align:center;padding:14px 16px;background:var(--blue-light);border-radius:12px;min-width:120px;">
+        <div style="font-size:10px;color:var(--blue-dark);font-weight:700;margin-bottom:5px;">廣告花費</div>
+        <div style="font-size:20px;font-weight:800;color:var(--blue-dark);">$153,342</div>
+        <div style="font-size:9px;color:var(--gray-400);margin-top:3px;">第一階段實際</div>
+      </div>
+      <div style="padding:0 6px;color:var(--gray-400);font-size:16px;display:flex;flex-direction:column;align-items:center;gap:1px;">
+        <span style="font-size:11px;font-weight:700;color:var(--orange);">÷ CPA</span><span>→</span>
+      </div>
+      <div style="text-align:center;padding:14px 16px;background:var(--orange-light);border-radius:12px;min-width:120px;">
+        <div style="font-size:10px;color:var(--orange);font-weight:700;margin-bottom:5px;">Meta Purchase</div>
+        <div style="font-size:20px;font-weight:800;color:var(--orange);">372 筆</div>
+        <div style="font-size:9px;color:var(--gray-400);margin-top:3px;">廣告直接歸因</div>
+      </div>
+      <div style="padding:0 6px;color:var(--gray-400);font-size:16px;display:flex;flex-direction:column;align-items:center;gap:1px;">
+        <span style="font-size:11px;font-weight:700;color:var(--blue-dark);">× 2.0–3.2</span><span>→</span>
+      </div>
+      <div style="text-align:center;padding:14px 16px;background:var(--blue-light);border-radius:12px;min-width:120px;">
+        <div style="font-size:10px;color:var(--blue-dark);font-weight:700;margin-bottom:5px;">運筆實際訂單</div>
+        <div style="font-size:20px;font-weight:800;color:var(--blue-dark);">981 筆</div>
+        <div style="font-size:9px;color:var(--gray-400);margin-top:3px;">含自然流量</div>
+      </div>
+      <div style="padding:0 6px;color:var(--gray-400);font-size:16px;display:flex;flex-direction:column;align-items:center;gap:1px;">
+        <span style="font-size:11px;font-weight:700;color:var(--green);">× 2.7–3.1</span><span>→</span>
+      </div>
+      <div style="text-align:center;padding:14px 16px;background:var(--green-light);border-radius:12px;min-width:120px;">
+        <div style="font-size:10px;color:var(--green);font-weight:700;margin-bottom:5px;">報名人數</div>
+        <div style="font-size:20px;font-weight:800;color:var(--green);">3,069 人</div>
+        <div style="font-size:9px;color:var(--gray-400);margin-top:3px;">親子家庭合計</div>
+      </div>
+    </div>
+    <div style="background:var(--yellow-light);border:1px solid #F0C040;border-radius:8px;padding:11px 14px;font-size:12px;color:#5D4037;">
+      ⚠️ <strong>倍數為範圍估算，非保證值。</strong>建議搭配保守（低倍數）與樂觀（高倍數）兩組情境一起試算，避免單一數字造成誤判。GTM 異常期間及每日 Purchase 低於 5 筆的日期已全數排除，以確保統計基礎的合理性。
+    </div>
+  </div>
+</div>
+
+<!-- ④ 各階段回顧 -->
+<div class="sec">
+  <div class="sec-title"><span>📋</span>各階段廣告成效分析</div>
+  <div class="phase-grid">
+    <div class="ph p1">
+      <div class="ph-lbl g">✅ 第一階段</div>
+      <div class="ph-title">開報測試期<br><small style="font-weight:400;color:var(--gray-600);">5/11 – 5/20（10天）</small></div>
+      <div class="ph-row"><span class="k">總花費</span><span class="v">$40,106</span></div>
+      <div class="ph-row"><span class="k">日均花費</span><span class="v">$4,010.6</span></div>
+      <div class="ph-row"><span class="k">Meta Purchase</span><span class="v">175 筆</span></div>
+      <div class="ph-row"><span class="k">平均 CPA</span><span class="v" style="color:var(--green)">$229.2</span></div>
+      <div class="ph-row"><span class="k">實際訂單（運筆）</span><span class="v">475 筆</span></div>
+      <div class="ph-row"><span class="k">累積報名</span><span class="v">1,551 人</span></div>
+      <div class="ph-row"><span class="k">日均訂單</span><span class="v">47.5 筆</span></div>
+      <div class="ph-row"><span class="k">訂單倍數</span><span class="v">2.7×</span></div>
+      <div class="ph-row"><span class="k">人數倍數</span><span class="v">3.3×</span></div>
+      <div class="ph-note g">表現優良。CPA $229.2，素材新鮮、CTR 高，成功累積大量再行銷受眾。</div>
+    </div>
+    <div class="ph p2">
+      <div class="ph-lbl r">⚠️ GTM 異常期</div>
+      <div class="ph-title">追蹤中斷（排除）<br><small style="font-weight:400;color:var(--gray-600);">5/21 – 5/22（2天）</small></div>
+      <div class="ph-row"><span class="k">總花費</span><span class="v">$14,946</span></div>
+      <div class="ph-row"><span class="k">日均花費</span><span class="v">$7,473</span></div>
+      <div class="ph-row"><span class="k">Meta Purchase</span><span class="v">15 筆（失真）</span></div>
+      <div class="ph-row"><span class="k">CPA（不具參考性）</span><span class="v" style="color:var(--red)">～$996</span></div>
+      <div class="ph-row"><span class="k">實際訂單（運筆）</span><span class="v">79 筆</span></div>
+      <div class="ph-row"><span class="k">新增報名</span><span class="v">+240 人</span></div>
+      <div class="ph-row"><span class="k">訂單倍數（失真）</span><span class="v">5.3×</span></div>
+      <div class="ph-row"><span class="k">人數倍數</span><span class="v">3.0×</span></div>
+      <div class="ph-note r">5/21 運動筆記 GTM 被移除，廣告 Purchase 追蹤中斷，數據失真，本期應排除判斷。</div>
+    </div>
+    <div class="ph p3">
+      <div class="ph-lbl o">📉 第二階段</div>
+      <div class="ph-title">素材疲乏期<br><small style="font-weight:400;color:var(--gray-600);">5/23 – 5/27（5天）</small></div>
+      <div class="ph-row"><span class="k">總花費</span><span class="v">$39,029</span></div>
+      <div class="ph-row"><span class="k">日均花費</span><span class="v">$7,805.8</span></div>
+      <div class="ph-row"><span class="k">Meta Purchase</span><span class="v">56 筆</span></div>
+      <div class="ph-row"><span class="k">平均 CPA</span><span class="v" style="color:var(--red)">$696.9</span></div>
+      <div class="ph-row"><span class="k">實際訂單（運筆）</span><span class="v">149 筆</span></div>
+      <div class="ph-row"><span class="k">新增報名</span><span class="v">+476 人</span></div>
+      <div class="ph-row"><span class="k">日均訂單</span><span class="v">29.8 筆</span></div>
+      <div class="ph-row"><span class="k">訂單倍數</span><span class="v">2.7×</span></div>
+      <div class="ph-row"><span class="k">人數倍數</span><span class="v">3.2×</span></div>
+      <div class="ph-note o">預算加倍但 CPA 飆升 3 倍。主因：舊素材疲乏（CTR 從 7.0% 降至 1.4%），流量成本 $3 升至 $5。</div>
+    </div>
+    <div class="ph p4">
+      <div class="ph-lbl b">🔧 第三階段</div>
+      <div class="ph-title">素材優化期<br><small style="font-weight:400;color:var(--gray-600);">5/28 – 6/9（13天）</small></div>
+      <div class="ph-row"><span class="k">總花費</span><span class="v">$59,261</span></div>
+      <div class="ph-row"><span class="k">日均花費</span><span class="v">$4,558.5</span></div>
+      <div class="ph-row"><span class="k">Meta Purchase</span><span class="v">126 筆</span></div>
+      <div class="ph-row"><span class="k">平均 CPA</span><span class="v" style="color:var(--blue)">$470.3</span></div>
+      <div class="ph-row"><span class="k">實際訂單（運筆）</span><span class="v">278 筆</span></div>
+      <div class="ph-row"><span class="k">新增報名</span><span class="v">+802 人</span></div>
+      <div class="ph-row"><span class="k">日均訂單</span><span class="v">21.4 筆</span></div>
+      <div class="ph-row"><span class="k">訂單倍數</span><span class="v">2.2×</span></div>
+      <div class="ph-row"><span class="k">人數倍數</span><span class="v">2.9×</span></div>
+      <div class="ph-note b">5/30 調整素材與受眾，CPA 改善。6/4 ROAS 達 10.3×（單日最佳）。方向已確認有效。</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">🔗 各階段 Meta Purchase vs 運筆訂單 vs 報名人數</div>
+    <div class="chart-box"><canvas id="c-phase"></canvas></div>
+    <div class="leg" style="margin-top:10px;">
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(0,120,194,.75);"></div>Meta Purchase（廣告直接歸因）</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(30,132,73,.75);"></div>運筆實際訂單（含自然流量）</div>
+      <div class="leg-i"><div class="leg-dot" style="background:rgba(212,160,23,.75);"></div>報名人數（含親子同行）</div>
+    </div>
+    <div style="margin-top:8px;font-size:12px;color:var(--gray-600);">
+      GTM 異常期數據（5/21–5/22）已包含在圖中，Purchase 明顯偏低屬追蹤失真，非實際廣告轉換下滑。運筆訂單約為 Purchase 的 <strong style="color:var(--blue);">2.0–3.2 倍</strong>（中位數 2.7×）；報名人數約為訂單的 <strong style="color:var(--green);">2.7–3.1 倍</strong>（近期趨勢下滑）。
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ IP 背景條件 -->
+<div class="sec">
+  <div class="sec-title"><span>⚡</span>Baby Shark vs 史努比路跑｜IP 先天條件差異</div>
+  <div class="card">
+    <div class="info-box">
+      <strong>為何要做這個比較？</strong>若以史努比路跑 2 萬人作為參照目標，需先了解兩者在 IP 聲量、受眾廣度與預算規模上的差距，才能設定合理期望值。
+    </div>
+    <div class="ip-grid">
+      <div class="ip-card them">
+        <div class="ip-name g">🐶 史努比路跑（參照基準）</div>
+        <div class="ip-row"><span class="ik">Google 月搜尋聲量</span><span class="iv">~49,500 次</span></div>
+        <div class="ip-row"><span class="ik">IP 受眾</span><span class="iv">年齡層廣泛</span></div>
+        <div class="ip-row"><span class="ik">廣告預算</span><span class="iv">$250,000</span></div>
+        <div class="ip-row"><span class="ik">走期</span><span class="iv">31 天</span></div>
+        <div class="ip-row"><span class="ik">報名人數</span><span class="iv">~20,000 人</span></div>
+        <div class="ip-row"><span class="ik">廣告 CPA</span><span class="iv">未知（無追蹤）</span></div>
+      </div>
+      <div class="ip-card ours">
+        <div class="ip-name b">🦈 Baby Shark Run（本次）</div>
+        <div class="ip-row"><span class="ik">Google 月搜尋聲量</span><span class="iv" style="color:var(--red)">~14,800 次（史努比 30%）</span></div>
+        <div class="ip-row"><span class="ik">IP 受眾</span><span class="iv" style="color:var(--orange)">親子族群為主（0-8歲家庭）</span></div>
+        <div class="ip-row"><span class="ik">廣告預算（第一階段）</span><span class="iv" style="color:var(--red)">$160,000（少 36%）</span></div>
+        <div class="ip-row"><span class="ik">走期</span><span class="iv" style="color:var(--green)">51 天（仍在進行）</span></div>
+        <div class="ip-row"><span class="ik">目前報名人數</span><span class="iv" style="color:var(--blue)">3,069 人（持續增加中）</span></div>
+        <div class="ip-row"><span class="ik">廣告 CPA</span><span class="iv" style="color:var(--green)">$412.2（有明確數據）</span></div>
+      </div>
+    </div>
+    <div class="warn-box">
+      <strong>📌 客觀結論：達到 20,000 人報名，條件相當吃力</strong>
+      Baby Shark IP 聲量僅史努比的 30%、受眾集中在親子族群、廣告預算少 36%。即使全力追加三階段預算，估算最終報名人數約在 <strong>6,800～10,800 人</strong>之間，難以達到 2 萬人目標。<strong>建議以「維持動能、合理成長」為目標，而非以萬人報名作為保證前提。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ 預算策略 -->
+<div class="sec">
+  <div class="sec-title"><span>🗓️</span>分階段廣告預算策略建議</div>
+  <div class="card">
+    <div class="tl">
+
+      <!-- Phase 1 -->
+      <div class="tl-item">
+        <div class="tl-dot dot-done">1</div>
+        <div class="tl-card">
+          <h3>✅ 第一階段｜開報測試期（已完成）</h3>
+          <div class="tl-budget done">$160,000（已使用 $153,342 / 95.8%）</div>
+          <div class="tl-p">時間：2026/05/11 – 預計 2026/06/12</div>
+          <div class="tl-p">達成成果：建立活動初期曝光、測試北中南市場反應、確認 CPA 基準（前期 $229.2，優化後 $470.3）、累積再行銷受眾。</div>
+          <div class="tl-list">
+            <div class="tl-li">訂單倍數穩定：2.0×～3.2×（中位數 2.7×）</div>
+            <div class="tl-li">人數倍數穩定：2.7×～3.1×（近期趨勢下滑，建議保守估算用 2.7×）</div>
+            <div class="tl-li">台中場成效最優，北中南預算比例已調整為 3:4:3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="tl-item">
+        <div class="tl-dot dot-next">2</div>
+        <div class="tl-card">
+          <h3>🔵 第二階段｜物資開箱期</h3>
+          <div class="tl-budget next">建議追加 $60,000 ～ $100,000</div>
+          <div class="tl-p">預計時間：2026/06/12 起，依以下指標連續 5 天達標再加碼</div>
+          <div class="tl-p"><strong>素材重點：</strong>人偶見面會實拍、海底探險任務背包、展通虹實體物資介紹</div>
+          <div class="tl-list">
+            <div class="tl-li">連外 CTR &gt; 1.8%</div>
+            <div class="tl-li">CPA 落在 $380 ～ $550</div>
+            <div class="tl-li">訂單倍數在 2.0× 以上</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="tl-item">
+        <div class="tl-dot dot-next">3</div>
+        <div class="tl-card">
+          <h3>🔵 第三階段｜KOL 合作期</h3>
+          <div class="tl-budget next">建議追加 $80,000 ～ $120,000</div>
+          <div class="tl-p">預計時間：2026/07 起，視第二階段達標後啟動，分批追加每次 $40,000</div>
+          <div class="tl-p"><strong>素材重點：</strong>KOL／KOC 開箱影片、親子家庭體驗分享、合作授權再行銷投放</div>
+          <div class="tl-list">
+            <div class="tl-li">連外 CTR &gt; 2.0%</div>
+            <div class="tl-li">CPA 落在 $350 ～ $500</div>
+            <div class="tl-li">訂單倍數在 2.0× 以上</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="tl-item">
+        <div class="tl-dot dot-fut">4</div>
+        <div class="tl-card">
+          <h3>🟠 第四階段｜報名倒數期</h3>
+          <div class="tl-budget fut">建議追加 $120,000 ～ $200,000</div>
+          <div class="tl-p">預計時間：活動前 6 週（約 2026/08 起），分批每次 $50,000，7 天達標再繼續</div>
+          <div class="tl-p"><strong>素材重點：</strong>名額倒數、錯過等明年、完賽物資展示、人偶見面會梯次截止、親子家庭見證</div>
+          <div class="tl-list">
+            <div class="tl-li">連外 CTR &gt; 2.0%</div>
+            <div class="tl-li">CPA 落在 $350 ～ $500</div>
+            <div class="tl-li">人數倍數在 2.7× 以上</div>
+            <div class="tl-li">ROAS &gt; 5.0×</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ 計算機 -->
+<div class="sec">
+  <div class="sec-title"><span>🧮</span>廣告費用推估計算機</div>
+  <div class="sim-wrap">
+    <h2>🧮 輸入追加廣告費用，推估預期成效</h2>
+    <div class="desc">依據歷史數據倍數推算，提供參考預估值。實際成效受素材品質、受眾飽和度、競爭環境影響，僅供預算規劃參考。</div>
+    <div class="sim-inputs">
+      <div class="sim-field">
+        <label>💰 追加廣告費用（NT$）</label>
+        <input type="number" id="simBudget" placeholder="例如：100000" min="0" step="10000" value="100000">
+      </div>
+      <div class="sim-field">
+        <label>📊 CPA 情境假設</label>
+        <select id="simCpa">
+          <option value="300">樂觀：$300（素材效果極佳）</option>
+          <option value="430" selected>穩健：$430（比照目前後期水準）</option>
+          <option value="550">保守：$550（素材效果有限）</option>
+          <option value="700">悲觀：$700（類似疲乏期）</option>
+        </select>
+      </div>
+    </div>
+    <button class="sim-btn" onclick="calcSim()">▶ 立即試算</button>
+
+    <div class="sim-results" id="simResults">
+      <div class="sim-card">
+        <div class="sl">Meta Purchase（預估）</div>
+        <div class="sv" id="res-p">233</div>
+        <div class="su">筆</div>
+        <div class="sf">= 費用 ÷ CPA</div>
+      </div>
+      <div class="sim-card">
+        <div class="sl">實際訂單（預估）</div>
+        <div class="sv" id="res-o">606</div>
+        <div class="su">筆（運筆後台）</div>
+        <div class="sf">= Purchase × 2.6</div>
+      </div>
+      <div class="sim-card">
+        <div class="sl">新增報名人數（預估）</div>
+        <div class="sv" id="res-r">1,879</div>
+        <div class="su">人</div>
+        <div class="sf">= 訂單 × 3.1</div>
+      </div>
+      <div class="sim-card">
+        <div class="sl">累積報名（含目前）</div>
+        <div class="sv" id="res-t">4,948</div>
+        <div class="su">人（目前 3,069 + 新增）</div>
+        <div class="sf">= 現有 + 預估新增</div>
+      </div>
+    </div>
+
+    <!-- Ratio explanation -->
+    <div class="ratio-grid">
+      <div class="ratio-card">
+        <div class="rv">2.6×</div>
+        <div class="rl">訂單倍數<br>運筆訂單 ÷ Meta Purchase<br><span style="color:var(--gray-400)">（981 ÷ 372）</span></div>
+      </div>
+      <div class="ratio-card">
+        <div class="rv">3.1×</div>
+        <div class="rl">人數倍數<br>報名人數 ÷ 實際訂單<br><span style="color:var(--gray-400)">（3,069 ÷ 981）</span></div>
+      </div>
+      <div class="ratio-card">
+        <div class="rv">8.3×</div>
+        <div class="rl">報名人數倍數<br>報名人數 ÷ Meta Purchase<br><span style="color:var(--gray-400)">（2.6 × 3.1）</span></div>
+      </div>
+    </div>
+
+    <div class="sim-note">
+      ⚠️ <strong>重要聲明：</strong>此推估以歷史整體倍數計算，不構成報名人數保證。CPA 會因素材品質、受眾飽和、競爭因素有顯著變化。實際成效以廣告後台及運動筆記後台數據為準。
+    </div>
+  </div>
+</div>
+
+<!-- ⑧ What's Next -->
+<div class="sec">
+  <div class="sec-title"><span>🎯</span>What's Next｜下一步行動計畫</div>
+  <div class="card">
+    <div class="info-box" style="margin-bottom:16px;">
+      <strong>報告的終點不是「觀察到什麼」，而是「接下來要怎麼做」。</strong>以下依 PDCA 邏輯，將數據轉化為可執行的下一步行動與驗證指標。
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="wn-table" style="min-width:700px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;min-width:100px;">階段</th>
+          <th style="text-align:left;min-width:170px;">觀察到</th>
+          <th style="text-align:left;min-width:170px;">判斷</th>
+          <th style="text-align:left;min-width:190px;">下一步行動</th>
+          <th style="text-align:left;min-width:150px;">確認指標</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="bdg bdg-r">即刻<br>6/12前</span></td>
+          <td>預算剩 $6,658；人偶、背包素材 6/9 剛上線</td>
+          <td>最佳轉換素材啟動就斷水，再行銷受眾無廣告承接</td>
+          <td>立即啟動第二階段，追加 $60K～$100K，以物資開箱素材為主</td>
+          <td style="line-height:2.0;">連外 CTR &gt; 1.8%<br>CPA 落在 $380～$550<br>訂單倍數在 2.0× 以上</td>
+        </tr>
+        <tr>
+          <td><span class="bdg bdg-b">第二階段<br>物資開箱期</span></td>
+          <td>物資實拍素材剛上線，CTR 尚未穩定</td>
+          <td>新素材通常 5–7 天後 CPA 才穩定，此時才是基準值</td>
+          <td>7 天後確認 CPA 基準；達標後每批 $40K 加碼，未達標先調素材</td>
+          <td style="line-height:2.0;">連外 CTR &gt; 1.8%<br>CPA 落在 $380～$550<br>訂單倍數在 2.0× 以上</td>
+        </tr>
+        <tr>
+          <td><span class="bdg" style="background:var(--purple-light);color:var(--purple);">第三階段<br>KOL 合作期</span></td>
+          <td>第二階段指標穩定達標後啟動</td>
+          <td>KOL 開箱影片能補足信任感，強化進站未報名者的轉換動機</td>
+          <td>KOL 影片授權後同步投放再行銷；台中場繼續維持較高預算比例</td>
+          <td style="line-height:2.0;">連外 CTR &gt; 2.0%<br>CPA 落在 $350～$500<br>訂單倍數在 2.0× 以上</td>
+        </tr>
+        <tr>
+          <td><span class="bdg bdg-o">第四階段<br>報名倒數期</span></td>
+          <td>距活動約 6 週，限時感最強</td>
+          <td>倒數素材搭配限時誘因是親子路跑最高效的收單時機</td>
+          <td>分批 $50K 追加；素材轉向名額倒數、完賽物資、見面會梯次截止</td>
+          <td style="line-height:2.0;">連外 CTR &gt; 2.0%<br>CPA 落在 $350～$500<br>人數倍數在 2.7× 以上</td>
+        </tr>
+        <tr>
+          <td><span class="bdg bdg-g">每週監控</span></td>
+          <td>倍數與 CPA 每週波動</td>
+          <td>7 日均線比單日數字更能反映真實趨勢</td>
+          <td>每週一更新倍數趨勢；每批加碼後 7 天確認 CPA 基準再繼續</td>
+          <td style="line-height:2.0;">連外 CTR 趨勢<br>CPA 落在 $350～$550<br>訂單倍數在 2.0×～3.2×</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="warn-box" style="margin-top:16px;">
+      <strong>⚠️ 預算追加非保證結果，而是維持動能的必要條件</strong>
+      依目前數據合理推估，全四階段追加後，總報名人數約 <strong>6,500～10,000 人</strong>。追加預算的目的是讓已建立的受眾基礎不中斷，而非保證萬人目標。若 CPA 持續高於 $700，應先暫停、調整素材再重啟，而非盲目加碼。
+    </div>
+  </div>
+</div>
+
+<!-- ⑨ 每日明細 -->
+<div class="sec">
+  <div class="sec-title"><span>📅</span>每日廣告數據明細表</div>
+  <div class="card">
+    <div class="leg">
+      <div class="leg-i"><div class="leg-dot" style="background:#FEF9EC;border:1px solid #F0C040;"></div>GTM 異常期（數據失真，排除判斷）</div>
+      <div class="leg-i"><div class="leg-dot" style="background:var(--orange-light);border:1px solid #E8601A;"></div>素材疲乏期</div>
+    </div>
+    <div class="dtbl-wrap">
+      <table class="dtbl">
+        <thead><tr>
+          <th>日期</th><th>廣告花費</th><th>Meta Purchase</th><th>CPA</th><th>ROAS</th>
+          <th>日訂單（運筆）</th><th>日報名人數</th><th>累積訂單</th><th>累積報名</th>
+          <th>CTR</th><th>備註</th>
+        </tr></thead>
+        <tbody id="dtbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="rpt-footer">
+  <p>2026 Baby Shark Run 廣告成效分析報告｜康耐德廣告代理｜報告日期：2026/06/10</p>
+  <p style="margin-top:3px;font-size:11px;">數據來源：Meta Ads Manager / 運動筆記後台｜本報告僅供內部使用，以廣告系統追蹤數據為準</p>
+</div>
+
+<script>
+/* ===== DATA ===== */
+const DATES = ["5/11","5/12","5/13","5/14","5/15","5/16","5/17","5/18","5/19","5/20","5/21","5/22","5/23","5/24","5/25","5/26","5/27","5/28","5/29","5/30","5/31","6/1","6/2","6/3","6/4","6/5","6/6","6/7","6/8","6/9"];
+const SPEND     = [3075,3929,4759,3540,2740,3033,3395,3384,5111,7140,9153,5793,5999,8404,8901,9525,6200,4243,4635,5169,6262,5214,6692,6804,4076,3464,2752,3989,3063,2898];
+const PURCHASE  = [17,19,32,13,12,13,15,7,19,28,13,2,6,18,12,12,8,5,6,8,20,12,15,11,12,10,8,11,5,3];
+const D_ORDERS  = [39,51,47,38,33,34,35,49,59,90,45,34,19,35,34,35,26,21,19,15,24,19,24,21,24,39,18,29,14,11];
+const D_REG     = [87,143,143,111,128,94,97,179,211,358,131,109,59,105,109,111,92,66,55,45,68,55,92,56,72,120,40,68,41,24];
+const C_ORDERS  = [39,90,137,175,208,242,277,326,385,475,520,554,573,608,642,677,703,724,743,758,782,801,825,846,870,909,927,956,970,981];
+const C_REG     = [87,230,373,484,612,706,803,982,1193,1551,1682,1791,1850,1955,2064,2175,2267,2333,2388,2433,2501,2556,2648,2704,2776,2896,2936,3004,3045,3069];
+const RAW_CPA   = [180.9,206.8,148.7,272.3,228.3,233.3,226.3,483.4,269.0,255.0,704.1,2896.5,999.8,466.9,741.8,793.8,775.0,848.6,772.5,646.1,313.1,434.5,446.1,618.5,339.7,346.4,344.0,362.6,612.6,966.0];
+const DISP_CPA  = RAW_CPA.map(v => Math.min(v, 1200));
+const ROAS_ARR  = [15.2,16.1,21.3,11.4,12.0,10.8,12.2,6.0,12.7,12.2,4.5,1.3,2.6,5.9,3.7,3.9,4.0,2.5,3.8,4.8,9.2,5.8,6.2,4.2,10.3,8.4,6.3,6.4,4.8,1.6];
+const CTR_ARR   = [7.0,4.9,4.0,3.5,3.2,3.4,3.3,2.4,2.3,2.1,2.0,1.7,1.7,1.6,1.4,1.6,1.4,1.3,1.8,2.9,2.8,2.2,2.0,1.9,1.6,1.4,1.9,1.5,1.1,1.4];
+
+/* Phase index: 0=normal, 1=gtm, 2=fatigue, 3=optimized */
+const PHASE = [0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3];
+
+/* ===== CHART HELPERS ===== */
+Chart.defaults.font.family = "-apple-system,'Segoe UI',Arial,sans-serif";
+Chart.defaults.font.size = 12;
+
+function phaseBgPlugin() {
+  return {
+    id:'phaseBg',
+    beforeDraw(chart){
+      const {ctx,chartArea,scales} = chart;
+      if(!chartArea||!scales.x) return;
+      ctx.save();
+      [[10,12,'rgba(192,57,43,.09)'],[12,17,'rgba(232,96,26,.07)']].forEach(([s,e,c])=>{
+        const x1=scales.x.getPixelForValue(s), x2=scales.x.getPixelForValue(e);
+        ctx.fillStyle=c; ctx.fillRect(x1,chartArea.top,x2-x1,chartArea.height);
+      });
+      ctx.restore();
+    }
+  };
+}
+
+/* ===== C1: SPEND + PURCHASE ===== */
+new Chart(document.getElementById('c-spend').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:DATES,
+    datasets:[
+      { type:'bar', label:'每日花費 (NT$)', data:SPEND, yAxisID:'y',
+        backgroundColor:DATES.map((_,i)=>i>=10&&i<=11?'rgba(192,57,43,.6)':i>=12&&i<=16?'rgba(232,96,26,.65)':'rgba(0,120,194,.7)'),
+        borderColor:'transparent', borderRadius:3, order:2 },
+      { type:'line', label:'Meta Purchase', data:PURCHASE, yAxisID:'y2',
+        borderColor:'#E8601A', backgroundColor:'rgba(232,96,26,.12)',
+        borderWidth:2.5, pointRadius:4, pointBackgroundColor:'#E8601A', tension:.35, order:1 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top'},
+      tooltip:{callbacks:{label:c=>c.datasetIndex===0?`花費: $${c.raw.toLocaleString()}`:`Purchase: ${c.raw} 筆`}}},
+    scales:{
+      x:{grid:{display:false}},
+      y:{position:'left',title:{display:true,text:'廣告花費 (NT$)'},ticks:{callback:v=>'$'+v.toLocaleString()}},
+      y2:{position:'right',title:{display:true,text:'Purchase (筆)'},grid:{drawOnChartArea:false}}
+    }
+  }, plugins:[phaseBgPlugin()]
+});
+
+/* ===== C2: CPA ===== */
+new Chart(document.getElementById('c-cpa').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:DATES,
+    datasets:[{
+      label:'CPA (NT$)', data:DISP_CPA,
+      borderColor:'#C0392B', backgroundColor:'rgba(192,57,43,.08)',
+      borderWidth:2, tension:.3, fill:true,
+      pointRadius:4,
+      pointBackgroundColor:DATES.map((_,i)=>PHASE[i]===1?'#C0392B':PHASE[i]===2?'#E8601A':PHASE[i]===3?'#0078C2':'#1E8449'),
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>{const v=RAW_CPA[c.dataIndex];return`CPA: $${v.toFixed(1)}${v>=1200?' (截值顯示)':''}`;}}},
+    },
+    scales:{
+      x:{grid:{display:false}},
+      y:{min:0,max:1300,title:{display:true,text:'CPA (NT$)'},ticks:{callback:v=>'$'+v.toLocaleString()}}
+    }
+  },
+  plugins:[phaseBgPlugin(),{
+    id:'cpaRef',
+    afterDraw(chart){
+      const {ctx,chartArea,scales}=chart;
+      if(!chartArea) return;
+      ctx.save();
+      const y=scales.y.getPixelForValue(550);
+      ctx.setLineDash([6,4]); ctx.strokeStyle='rgba(232,96,26,.7)'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.moveTo(chartArea.left,y); ctx.lineTo(chartArea.right,y); ctx.stroke();
+      ctx.font='11px Arial'; ctx.fillStyle='rgba(232,96,26,.85)';
+      ctx.fillText('警戒線 $550',chartArea.right-80,y-4);
+      ctx.restore();
+    }
+  }]
+});
+
+/* ===== C3: DAILY ORDERS & REG ===== */
+new Chart(document.getElementById('c-daily').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:DATES,
+    datasets:[
+      {label:'報名人數',data:D_REG,backgroundColor:'rgba(30,132,73,.7)',borderRadius:2,order:2},
+      {label:'訂單筆數',data:D_ORDERS,backgroundColor:'rgba(0,120,194,.8)',borderRadius:2,order:1}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{position:'top'}},
+    scales:{x:{grid:{display:false}},y:{title:{display:true,text:'人數/筆數'}}}
+  }, plugins:[phaseBgPlugin()]
+});
+
+/* ===== C4: CUMULATIVE ===== */
+new Chart(document.getElementById('c-cumul').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:DATES,
+    datasets:[
+      {label:'累積報名人數',data:C_REG,borderColor:'#1E8449',backgroundColor:'rgba(30,132,73,.10)',
+       borderWidth:2.5,pointRadius:3,tension:.4,fill:true},
+      {label:'累積訂單',data:C_ORDERS,borderColor:'#0078C2',backgroundColor:'transparent',
+       borderWidth:2,borderDash:[5,4],pointRadius:2,tension:.4}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toLocaleString()}`}}},
+    scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>v.toLocaleString()}}}
+  }, plugins:[phaseBgPlugin()]
+});
+
+/* ===== C5: PHASE COMPARISON ===== */
+new Chart(document.getElementById('c-phase').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['第一階段\n開報測試','GTM異常期\n(排除)','素材疲乏期','素材優化期','合計'],
+    datasets:[
+      {label:'Meta Purchase',data:[175,15,56,126,372],backgroundColor:'rgba(0,120,194,.75)',borderRadius:4},
+      {label:'運筆實際訂單',data:[475,79,149,278,981],backgroundColor:'rgba(30,132,73,.75)',borderRadius:4},
+      {label:'報名人數',data:[1551,240,476,802,3069],backgroundColor:'rgba(212,160,23,.75)',borderRadius:4}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{position:'top'}},
+    scales:{x:{grid:{display:false}},y:{title:{display:true,text:'數量'}}}
+  }
+});
+
+/* ===== C-MULT1 & C-MULT2 data ===== */
+// 訂單倍數 daily (outlier 5/18=7.0 replaced null; GTM 5/21-5/22 null)
+const OM_DISP = [2.29,2.68,1.47,2.92,2.75,2.62,2.33,null,3.11,3.21,null,null,3.17,1.94,2.83,2.92,3.25,4.2,3.17,1.88,1.2,1.58,1.6,1.91,2.0,3.9,2.25,2.64,2.8,3.67];
+// 7-day moving average trend
+const OM_TREND = [2.34,2.42,2.46,2.44,2.46,2.53,2.82,2.80,2.82,2.96,2.86,2.85,2.81,2.82,3.05,3.07,2.88,2.78,2.60,2.41,2.22,1.91,2.01,2.06,2.27,2.44,2.74,2.88,3.05,2.84];
+// 人數倍數 daily (outliers: 5/15,5/20,6/2,6/9 replaced null)
+const PM_DISP = [2.23,2.80,3.04,2.92,null,2.76,2.77,3.65,3.58,null,2.91,3.21,3.11,3.0,3.21,3.17,3.54,3.14,2.89,3.0,2.83,2.89,null,2.67,3.0,3.08,2.22,2.34,2.93,null];
+const PM_TREND = [2.75,2.75,2.75,2.75,2.99,3.12,3.14,3.13,3.15,3.21,3.24,3.17,3.10,3.16,3.20,3.15,3.14,3.11,3.07,3.05,2.90,2.88,2.91,2.78,2.70,2.71,2.63,2.62,2.55,2.42];
+
+/* ===== C-MULT1: Purchase vs 訂單（含倍數趨勢線） ===== */
+new Chart(document.getElementById('c-mult1').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:DATES,
+    datasets:[
+      { type:'bar', label:'Meta Purchase', data:PURCHASE,
+        backgroundColor:'rgba(0,120,194,.6)', borderRadius:3, order:3, yAxisID:'y' },
+      { type:'line', label:'運筆實際訂單', data:D_ORDERS,
+        borderColor:'#1E8449', backgroundColor:'rgba(30,132,73,.07)',
+        borderWidth:2, pointRadius:2, tension:.3, fill:true, order:2, yAxisID:'y' },
+      { type:'line', label:'訂單倍數（每日）', data:OM_DISP,
+        borderColor:'rgba(232,96,26,.7)', backgroundColor:'transparent',
+        borderWidth:1.5, pointRadius:3, pointStyle:'circle',
+        pointBackgroundColor:DATES.map((_,i)=>OM_DISP[i]===null?'transparent':'rgba(232,96,26,.8)'),
+        tension:.2, order:1, yAxisID:'y2', borderDash:[4,3], spanGaps:false },
+      { type:'line', label:'趨勢線（7日均）', data:OM_TREND,
+        borderColor:'#E8601A', backgroundColor:'transparent',
+        borderWidth:2.5, pointRadius:0, tension:.5, order:0, yAxisID:'y2', spanGaps:true }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{position:'top'},
+      tooltip:{callbacks:{
+        label(c){
+          if(c.dataset.yAxisID==='y2') return c.dataset.label+': '+(c.raw===null?'—':c.raw+'×');
+          return c.dataset.label+': '+c.raw;
+        }
+      }}
+    },
+    scales:{
+      x:{grid:{display:false}},
+      y:{position:'left', title:{display:true,text:'筆數'}, grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{position:'right', title:{display:true,text:'倍數 (×)'},
+        min:0, max:5.5, ticks:{callback:v=>v+'×'}, grid:{drawOnChartArea:false}}
+    }
+  }, plugins:[phaseBgPlugin()]
+});
+
+/* ===== C-MULT2: 訂單 vs 報名人數（含倍數趨勢線） ===== */
+new Chart(document.getElementById('c-mult2').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:DATES,
+    datasets:[
+      { type:'bar', label:'運筆實際訂單', data:D_ORDERS,
+        backgroundColor:'rgba(0,120,194,.6)', borderRadius:3, order:3, yAxisID:'y' },
+      { type:'line', label:'報名人數', data:D_REG,
+        borderColor:'#1E8449', backgroundColor:'rgba(30,132,73,.07)',
+        borderWidth:2, pointRadius:2, tension:.3, fill:true, order:2, yAxisID:'y' },
+      { type:'line', label:'人數倍數（每日）', data:PM_DISP,
+        borderColor:'rgba(91,44,141,.7)', backgroundColor:'transparent',
+        borderWidth:1.5, pointRadius:3,
+        pointBackgroundColor:DATES.map((_,i)=>PM_DISP[i]===null?'transparent':'rgba(91,44,141,.8)'),
+        tension:.2, order:1, yAxisID:'y2', borderDash:[4,3], spanGaps:false },
+      { type:'line', label:'趨勢線（7日均）', data:PM_TREND,
+        borderColor:'#5B2C8D', backgroundColor:'transparent',
+        borderWidth:2.5, pointRadius:0, tension:.5, order:0, yAxisID:'y2', spanGaps:true }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{position:'top'},
+      tooltip:{callbacks:{
+        label(c){
+          if(c.dataset.yAxisID==='y2') return c.dataset.label+': '+(c.raw===null?'—':c.raw+'×');
+          return c.dataset.label+': '+c.raw;
+        }
+      }}
+    },
+    scales:{
+      x:{grid:{display:false}},
+      y:{position:'left', title:{display:true,text:'人數/筆數'}, grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{position:'right', title:{display:true,text:'倍數 (×)'},
+        min:0, max:5.5, ticks:{callback:v=>v+'×'}, grid:{drawOnChartArea:false}}
+    }
+  }, plugins:[phaseBgPlugin()]
+});
+function calcSim(){
+  const budget=parseFloat(document.getElementById('simBudget').value)||0;
+  const cpa=parseFloat(document.getElementById('simCpa').value)||430;
+  const OM=2.6, PM=3.1, CUR=3069;
+  const p=Math.round(budget/cpa);
+  const o=Math.round(p*OM);
+  const r=Math.round(o*PM);
+  const t=CUR+r;
+  document.getElementById('res-p').textContent=p.toLocaleString();
+  document.getElementById('res-o').textContent=o.toLocaleString();
+  document.getElementById('res-r').textContent=r.toLocaleString();
+  document.getElementById('res-t').textContent=t.toLocaleString();
+  const btn=document.querySelector('.sim-btn');
+  btn.textContent='✅ 已更新'; setTimeout(()=>btn.textContent='▶ 立即試算',1400);
+}
+document.getElementById('simBudget').addEventListener('input',calcSim);
+document.getElementById('simCpa').addEventListener('change',calcSim);
+calcSim();
+
+/* ===== DAILY TABLE ===== */
+(function(){
+  const NOTES={10:'⚠️ GTM 異常（5/21）',11:'⚠️ GTM 異常（5/22）',
+    12:'素材疲乏期開始',16:'素材疲乏期結束',
+    17:'5/28 調整素材',19:'5/30 素材優化',24:'6/4 ROAS 10.3（最佳）',28:'6/9 新素材上線'};
+  const tbody=document.getElementById('dtbody');
+  DATES.forEach((d,i)=>{
+    const tr=document.createElement('tr');
+    if(PHASE[i]===1) tr.classList.add('gtm');
+    else if(PHASE[i]===2) tr.classList.add('fat');
+    const cpaV=RAW_CPA[i];
+    const cpaStr=`$${cpaV.toFixed(1)}`;
+    const cpaColor=cpaV>700?'var(--red)':cpaV<350?'var(--green)':'var(--orange)';
+    tr.innerHTML=`
+      <td><strong>${d}</strong></td>
+      <td>$${SPEND[i].toLocaleString()}</td>
+      <td>${PURCHASE[i]}</td>
+      <td style="color:${cpaColor};font-weight:700;">${cpaStr}</td>
+      <td>${ROAS_ARR[i].toFixed(1)}×</td>
+      <td>${D_ORDERS[i]}</td>
+      <td>${D_REG[i]}</td>
+      <td>${C_ORDERS[i]}</td>
+      <td>${C_REG[i]}</td>
+      <td>${CTR_ARR[i].toFixed(1)}%</td>
+      <td style="font-size:11px;color:var(--gray-600);">${NOTES[i]||''}</td>`;
+    tbody.appendChild(tr);
+  });
+  const tot=document.createElement('tr');
+  tot.style.cssText='background:var(--blue);color:white;font-weight:700;';
+  tot.innerHTML=`<td>合計</td><td>$153,342</td><td>372</td><td>$412.2</td><td>7.1×</td><td>981</td><td>3,069</td><td>981</td><td>3,069</td><td>—</td><td>5/11–6/9（30天）</td>`;
+  tbody.appendChild(tot);
+})();
+</script>
+</body>
+</html>
